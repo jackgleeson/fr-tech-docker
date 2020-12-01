@@ -1,0 +1,4 @@
+[submodule "apps/process-control"]
+	path = apps/process-control
+	url = https://gerrit.wikimedia.org/r/wikimedia/fundraising/process-control
+	branch = dockerfile

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  payments: # PHP 7.3 app
+    build: apps/payments
+    ports:
+      - "8001:80"
+    volumes:
+      # bind-mount used to mount src code into image for development.
+      - ./apps/payments/src:/srv/myapp
+
+  civicrm: # PHP 7.4 app
+    build: apps/civicrm
+    ports:
+      - "8002:80"
+    volumes:
+      # bind-mount used to mount src code into image for development.
+      - ./apps/civicrm/src:/srv/myapp
+
+  php8: # PHP 8 app
+    build: apps/php-8-is-here
+    ports:
+      - "8003:80"
+    volumes:
+      # bind-mount used to mount src code into image for development.
+      - ./apps/php-8-is-here/src:/srv/myapp
+
+  fundrasing-tools: # Python3 app
+    build: apps/fundraising-tools
+    ports:
+      - "8004:80"
+    volumes:
+      # bind-mount used to mount src code into image for development.
+      - ./apps/fundraising-tools/src:/srv/myapp
+
+  process-control: #Python3 app
+    build: apps/process-control
+    volumes:
+      # bind-mount used to mount src code into image for development.
+      - ./apps/process-control:/srv/process-control
