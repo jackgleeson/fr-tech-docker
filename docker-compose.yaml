@@ -8,6 +8,7 @@ services:
     volumes:
       # bind-mount used to mount src code into image for development.
       - ./apps/payments/src:/srv/myapp
+      - ./shared/important-config:/srv/config/important-config
 
   civicrm: # PHP 7.4 app
     build: apps/civicrm
@@ -16,6 +17,8 @@ services:
     volumes:
       # bind-mount used to mount src code into image for development.
       - ./apps/civicrm/src:/srv/myapp
+      - ./shared/important-config:/srv/config/important-config
+
 
   php8: # PHP 8 app
     build: apps/php-8-is-here
@@ -24,6 +27,7 @@ services:
     volumes:
       # bind-mount used to mount src code into image for development.
       - ./apps/php-8-is-here/src:/srv/myapp
+      - ./shared/important-config:/srv/config/important-config
 
   fundrasing-tools: # Python3 app
     build: apps/fundraising-tools
@@ -32,9 +36,11 @@ services:
     volumes:
       # bind-mount used to mount src code into image for development.
       - ./apps/fundraising-tools/src:/srv/myapp
+      - ./shared/important-config:/srv/config/important-config
 
   process-control: #Python3 app
     build: apps/process-control
     volumes:
       # bind-mount used to mount src code into image for development.
       - ./apps/process-control:/srv/process-control
+      - ./shared/important-config:/srv/config/important-config
