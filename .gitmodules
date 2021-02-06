@@ -2,3 +2,7 @@
 	path = apps/process-control
 	url = https://gerrit.wikimedia.org/r/wikimedia/fundraising/process-control
 	branch = dockerfile
+[submodule "apps/payments/src"]
+	path = apps/payments/src
+	url = https://gerrit.wikimedia.org/r/mediawiki/core
+	branch = fundraising/REL1_35
