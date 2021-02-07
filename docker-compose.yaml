@@ -1,46 +1,56 @@
 version: '3.8'
 
 services:
-  payments: # PHP 7.3 app
+  payments:
     build: apps/payments
+    volumes:
+      # Src
+      - ./apps/payments/src/:/var/www/html/
+      # Config
+      - ./config/payments/mw/:/docker/config/mw/
+      - ./config/payments/smashpig/:/docker/config/smashpig/
+      # Logs
+      - ./logs/payments.apache.errors:/var/log/apache2/error.log
+      - ./logs/payments.apache.access:/var/log/apache2/access.log
+      - ./logs/payments.php.errors:/var/log/php/error.log
+      - ./logs/payments.mw-debug:/var/log/php/mw-debug.log
     ports:
-      - "8001:80"
-    volumes:
-      # bind-mount used to mount src code into image for development.
-      - ./apps/payments/src:/srv/myapp
-      - ./shared/important-config:/srv/config/important-config
+      - "8001:8001"
+    environment:
+      MW_SERVER: 'https://localhost:8001'
+      MW_SCRIPT_PATH: ''
+      MW_DB_TYPE: 'mysql'
+      MW_DB_HOST: 'database'
+      MW_DB_NAME: 'payments'
+      MW_DB_USER: 'root'
+      MW_DB_PASS: 'dockerpass'
+      MW_LANG: 'en'
+      MW_USER: 'admin'
+      MW_PASS: 'dockerpass'
+      MW_SITENAME: 'payments-wiki'
+    depends_on:
+      - database
+      - queue
+      - memcached
 
-  civicrm: # PHP 7.4 app
-    build: apps/civicrm
+  queue:
+    image: redis:5.0-buster
+    volumes:
+      - qdata:/data
+    command: [ "redis-server", "--appendonly", "yes" ]
+
+  memcached:
+    image: memcached
+
+  database:
+    image: mariadb:10.4
+    volumes:
+      - dbdata:/var/lib/mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: dockerpass
     ports:
-      - "8002:80"
-    volumes:
-      # bind-mount used to mount src code into image for development.
-      - ./apps/civicrm/src:/srv/myapp
-      - ./shared/important-config:/srv/config/important-config
+      - "33060:3306"
 
-
-  php8: # PHP 8 app
-    build: apps/php-8-is-here
-    ports:
-      - "8003:80"
-    volumes:
-      # bind-mount used to mount src code into image for development.
-      - ./apps/php-8-is-here/src:/srv/myapp
-      - ./shared/important-config:/srv/config/important-config
-
-  fundrasing-tools: # Python3 app
-    build: apps/fundraising-tools
-    ports:
-      - "8004:80"
-    volumes:
-      # bind-mount used to mount src code into image for development.
-      - ./apps/fundraising-tools/src:/srv/myapp
-      - ./shared/important-config:/srv/config/important-config
-
-  process-control: #Python3 app
-    build: apps/process-control
-    volumes:
-      # bind-mount used to mount src code into image for development.
-      - ./apps/process-control:/srv/process-control
-      - ./shared/important-config:/srv/config/important-config
+volumes:
+  dbdata:
+  qdata:

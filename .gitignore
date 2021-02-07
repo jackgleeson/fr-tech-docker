@@ -1,0 +1,8 @@
+logs/*
+config/payments/mw/private/*
+apps/payments/mediawiki
+apps/payments/src/LocalSettings.php
+apps/payments/docker/config/mw/private
+!apps/payments/docker/config/mw/private/README
+apps/payments/docker/config/smashpig/private
+!apps/payments/docker/config/smashpig/private/README
