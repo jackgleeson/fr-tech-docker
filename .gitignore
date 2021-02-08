@@ -1,4 +1,5 @@
 logs/*
+!logs/.gitkeep
 config/payments/mw/private/*
 apps/payments/mediawiki
 apps/payments/src/LocalSettings.php
