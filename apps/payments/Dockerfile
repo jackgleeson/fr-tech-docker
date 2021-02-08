@@ -50,6 +50,10 @@ RUN pecl install imagick \
     && docker-php-ext-enable apcu \
     && docker-php-ext-enable redis
 
+RUN addgroup --gid=1000 runuser
+RUN useradd --home-dir /runuser --create-home --uid 1000 --gid 1000 runuser
+
+COPY docker/php.ini /usr/local/etc/php/php.ini
 COPY ./src /var/www/html/
 COPY ./docker /docker/
 COPY ./docker/config/smashpig/public/ /etc/smashpig/
@@ -69,5 +73,4 @@ RUN curl --silent --fail --output composer.phar https://getcomposer.org/download
     && mv /tmp/composer.phar /usr/bin/composer
 
 WORKDIR /var/www/html
-
 EXPOSE 8001

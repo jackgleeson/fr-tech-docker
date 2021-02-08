@@ -2,4 +2,7 @@
 
 set -exuo pipefail
 
-docker-compose exec payments /bin/bash /docker/install.sh
+# Install Payments-wiki
+docker-compose exec -u runuser payments /bin/bash /docker/install.sh
+
+# Install CiviCRM
