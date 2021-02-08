@@ -33,6 +33,22 @@ services:
       - queue
       - memcached
 
+  civicrm:
+    build: apps/civicrm
+    volumes:
+      # Src
+      # - ./apps/civicrm/src/:/var/www/html/
+      # Logs
+      - ./logs/civicrm.apache.errors:/var/log/apache2/error.log
+      - ./logs/civicrm.apache.access:/var/log/apache2/access.log
+      - ./logs/civicrm.php.errors:/var/log/php/error.log
+    ports:
+      - "8002:8002"
+    depends_on:
+      - database
+      - queue
+      - memcached
+
   queue:
     image: redis:5.0-buster
     volumes:

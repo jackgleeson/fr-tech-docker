@@ -2,3 +2,6 @@
 	path = apps/payments/src
 	url = https://gerrit.wikimedia.org/r/mediawiki/core
 	branch = fundraising/REL1_35
+[submodule "apps/civicrm/src"]
+	path = apps/civicrm/src
+	url = https://gerrit.wikimedia.org/r/wikimedia/fundraising/crm

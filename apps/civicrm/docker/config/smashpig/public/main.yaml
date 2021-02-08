@@ -1,0 +1,81 @@
+data-store:
+  redis: &REDIS
+    class: PHPQueue\Backend\Predis
+    constructor-parameters:
+      - servers:
+          scheme: tcp
+          host: queue
+          port: 6379
+
+  mysql: &MYSQL
+    class: PDO
+    constructor-parameters:
+      - mysql:host=database;dbname=smashpig
+      - smashpig
+
+  pending-db:
+    <<: *MYSQL
+
+  damaged-db:
+    <<: *MYSQL
+
+  fredge-db:
+    class: PDO
+    constructor-parameters:
+      - mysql:host=database;dbname=fredge
+      - smashpig
+
+  banner-history:
+    <<: *REDIS
+
+  contribution-tracking:
+    <<: *REDIS
+
+  donations:
+    <<: *REDIS
+
+  jobs-adyen:
+    <<: *REDIS
+
+  jobs-amazon:
+    <<: *REDIS
+
+  jobs-ingenico:
+    <<: *REDIS
+
+  jobs-paypal:
+    <<: *REDIS
+
+  opt-in:
+    <<: *REDIS
+
+  payments-antifraud:
+    <<: *REDIS
+
+  payments-init:
+    <<: *REDIS
+
+  pending:
+    <<: *REDIS
+
+  recurring:
+    <<: *REDIS
+
+  refund:
+    <<: *REDIS
+
+  unsubscribe:
+    <<: *REDIS
+
+cache:
+  class: LocalClusterPsr6Cache
+
+sequence-generator:
+  contribution-tracking:
+    class: SmashPig\Core\SequenceGenerators\PredisSequenceGenerator
+    constructor-parameters:
+      - servers:
+          scheme: tcp
+          host: queue
+          port: 6379
+        sequence: contribution-tracking

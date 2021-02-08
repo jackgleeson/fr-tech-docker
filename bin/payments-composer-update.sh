@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose exec payments composer update $@
+docker-compose exec -u runuser payments composer update $@

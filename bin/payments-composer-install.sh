@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose exec payments composer install $@
+docker-compose exec -u runuser payments composer install $@
