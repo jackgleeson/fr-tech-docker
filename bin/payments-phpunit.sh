@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose exec payments php tests/phpunit/phpunit.php --group DonationInterface
+docker-compose  exec -u docker payments php tests/phpunit/phpunit.php --group DonationInterface

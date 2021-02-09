@@ -2,14 +2,18 @@ version: '3.8'
 
 services:
   payments:
-    build: apps/payments
+    build:
+      context: apps/payments
+      args:
+        user_id: ${DOCKER_UID:-1000}
+        group_id: ${DOCKER_GID:-1000}
     volumes:
-      # Src
+      # src
       - ./apps/payments/src/:/var/www/html/
-      # Config
+      # config
       - ./config/payments/mw/:/docker/config/mw/
       - ./config/payments/smashpig/:/docker/config/smashpig/
-      # Logs
+      # logs
       - ./logs/payments.apache.errors:/var/log/apache2/error.log
       - ./logs/payments.apache.access:/var/log/apache2/access.log
       - ./logs/payments.php.errors:/var/log/php/error.log
@@ -17,6 +21,7 @@ services:
     ports:
       - "8001:8001"
     environment:
+      APACHE_RUN_USER: docker
       MW_SERVER: 'https://localhost:8001'
       MW_SCRIPT_PATH: ''
       MW_DB_TYPE: 'mysql'
@@ -34,16 +39,22 @@ services:
       - memcached
 
   civicrm:
-    build: apps/civicrm
+    build:
+      context: apps/civicrm
+      args:
+        user_id: ${DOCKER_UID:-1000}
+        group_id: ${DOCKER_GID:-1000}
     volumes:
-      # Src
+      # src
       # - ./apps/civicrm/src/:/var/www/html/
-      # Logs
+      # logs
       - ./logs/civicrm.apache.errors:/var/log/apache2/error.log
       - ./logs/civicrm.apache.access:/var/log/apache2/access.log
       - ./logs/civicrm.php.errors:/var/log/php/error.log
     ports:
       - "8002:8002"
+    environment:
+      APACHE_RUN_USER: docker
     depends_on:
       - database
       - queue

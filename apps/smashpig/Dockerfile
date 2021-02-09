@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y mariadb-client \
 curl \
 git \
 unzip \
-sudo \
 libmagickwand-dev \
 libjpeg-dev \
 libpng-dev \
@@ -53,8 +52,8 @@ RUN pecl install imagick \
 
 ARG user_id
 ARG group_id
-RUN addgroup --gid=$group_id docker
-RUN useradd --home-dir /docker --create-home --uid $user_id --gid $group_id docker
+RUN addgroup --gid=$group_id runuser
+RUN useradd --home-dir /runuser --create-home --uid $user_id --gid $group_id runuser
 
 COPY docker/php.ini /usr/local/etc/php/php.ini
 COPY ./src /var/www/html/

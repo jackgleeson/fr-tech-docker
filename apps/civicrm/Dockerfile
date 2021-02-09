@@ -12,6 +12,7 @@ RUN /usr/bin/openssl req \
 -out /etc/ssl/certs/civicrm.crt \
 -days 1095
 
+# Build CiviCRM environment
 FROM php:7.3-apache-buster
 RUN apt-get update && apt-get install -y \
 git \
@@ -33,8 +34,6 @@ libzip-dev \
 nano \
 less
 
-# Install php extensions (curl, json, mbstring, openssl, posix, phar
-# are installed already and don't need to be specified here)
 RUN docker-php-ext-install bcmath \
   && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
   && docker-php-ext-install gd \
@@ -52,15 +51,24 @@ RUN pecl install imagick \
     && pecl install xdebug \
     && docker-php-ext-enable imagick
 
-RUN addgroup --gid=1000 runuser
-RUN useradd --home-dir /runuser --create-home --uid 1000 --gid 1000 runuser
+ARG user_id
+ARG group_id
+RUN addgroup --gid=$group_id docker
+RUN useradd --home-dir /docker --create-home --uid $user_id --gid $group_id docker
 
-COPY docker/php.ini /usr/local/etc/php/php.ini
-COPY docker /docker/
-COPY --chown=www-data:root src /var/www/html/
+COPY ./docker /docker/
+RUN chown -R docker /docker
+COPY ./docker/php.ini /usr/local/etc/php/php.ini
+COPY --chown=docker src /var/www/html/
 COPY docker/drush.sh /usr/local/bin/drush
-COPY --chown=www-data:root docker/config/drupal /var/www/html/sites/default/
+COPY --chown=docker docker/config/drupal /var/www/html/sites/default/
 COPY ./docker/config/smashpig/public/ /etc/smashpig/
+RUN mkdir /var/spool/prometheus && chown docker /var/spool/prometheus
+
+WORKDIR /docker
+RUN git clone https://gerrit.wikimedia.org/r/wikimedia/fundraising/crm/civicrm-buildkit
+RUN /docker/civicrm-buildkit/bin/civi-download-tools
+ENV PATH="${PATH}:/docker/civicrm-buildkit/bin"
 
 COPY --from=cert_builder /etc/ssl/certs/ /etc/ssl/certs/
 COPY ./docker/civicrm.ssl.conf /etc/apache2/sites-available/
@@ -78,6 +86,5 @@ RUN curl --silent --fail --output composer.phar https://getcomposer.org/download
     && mv /tmp/composer.phar /usr/bin/composer
 
 WORKDIR /var/www/html
-
 EXPOSE 8002
 

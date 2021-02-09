@@ -2,8 +2,13 @@
 
 set -exuo pipefail
 
+sudo -u docker composer install
+
 # Install payments-wiki
-php maintenance/install.php \
+if [ -f "LocalSettings.php" ]; then
+    rm LocalSettings.php
+fi
+sudo -u docker php maintenance/install.php \
   --server "$MW_SERVER" \
   --scriptpath="$MW_SCRIPT_PATH" \
   --dbtype "$MW_DB_TYPE" \
@@ -15,8 +20,6 @@ php maintenance/install.php \
   --pass "$MW_PASS" \
   --with-extensions \
   "$MW_SITENAME" "$MW_USER"
-
-composer install
 
 # Load mw config
 LS=${PWD}"/LocalSettings.php"
