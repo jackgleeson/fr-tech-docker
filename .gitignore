@@ -1,11 +1,11 @@
 .env
 logs/*
-!logs/.gitkeep
 config/*
-apps/payments/mediawiki
-apps/payments/src/LocalSettings.php
+
+# private config
 apps/payments/docker/config/mw/private
 !apps/payments/docker/config/mw/private/README
 apps/payments/docker/config/smashpig/private
 !apps/payments/docker/config/smashpig/private/README
-.env
+apps/smashpig/docker/config/smashpig/private
+!apps/smashpig/docker/config/smashpig/private/README

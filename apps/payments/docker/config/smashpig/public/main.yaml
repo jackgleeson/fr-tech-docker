@@ -11,7 +11,8 @@ data-store:
     class: PDO
     constructor-parameters:
       - mysql:host=database;dbname=smashpig
-      - smashpig
+      - root
+      - dockerpass
 
   pending-db:
     <<: *MYSQL
@@ -23,7 +24,8 @@ data-store:
     class: PDO
     constructor-parameters:
       - mysql:host=database;dbname=fredge
-      - smashpig
+      - root
+      - dockerpass
 
   banner-history:
     <<: *REDIS

@@ -60,7 +60,29 @@ services:
     depends_on:
       - database
       - queue
-      - memcached
+      - smashpig
+
+  smashpig:
+    build:
+      context: apps/smashpig
+      args:
+        user_id: ${DOCKER_UID:-1000}
+        group_id: ${DOCKER_GID:-1000}
+    volumes:
+      # src
+      - ./apps/smashpig/src/:/var/www/html/
+      # logs
+      - ./logs/smashpig-apache-errors.log:/var/log/apache2/error.log
+      - ./logs/smashpig-apache-access.log:/var/log/apache2/access.log
+      - ./logs/smashpig-php-errors.log:/var/log/php/error.log
+      - ./logs/smashpig-xdebug.log:/var/log/xdebug.log
+    ports:
+      - "8000:8003"
+    environment:
+      APACHE_RUN_USER: docker
+    depends_on:
+      - database
+      - queue
 
   queue:
     image: redis:5.0-buster

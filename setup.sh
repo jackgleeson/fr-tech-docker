@@ -18,5 +18,11 @@ done
 (cd ./apps/payments/src/extensions/DonationInterface && git checkout master)
 docker-compose exec payments /bin/bash /docker/install.sh
 
+# setup smashpig
+docker-compose exec smashpig /bin/bash /docker/install.sh
+
 # setup civicrm
+(cd ./apps/civicrm/src && git checkout master && git submodule update --init)
 docker-compose exec civicrm /bin/bash /docker/install.sh
+
+
