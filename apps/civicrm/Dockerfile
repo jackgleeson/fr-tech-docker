@@ -59,9 +59,12 @@ RUN useradd --home-dir /docker --create-home --uid $user_id --gid $group_id dock
 COPY ./docker /docker/
 RUN chown -R docker /docker
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
+
+# let's use a tag here
 COPY --chown=docker src /var/www/html/
-COPY docker/drush.sh /usr/local/bin/drush
-COPY --chown=docker docker/config/drupal /var/www/html/sites/default/
+RUN chmod 755 /var/www/html/sites/default
+
+COPY ./docker/drush.sh /usr/local/bin/drush
 COPY ./docker/config/smashpig/public/ /etc/smashpig/
 RUN mkdir /var/spool/prometheus && chown docker /var/spool/prometheus
 

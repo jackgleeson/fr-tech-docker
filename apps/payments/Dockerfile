@@ -56,9 +56,11 @@ ARG group_id
 RUN addgroup --gid=$group_id docker
 RUN useradd --home-dir /docker --create-home --uid $user_id --gid $group_id docker
 
-COPY docker/php.ini /usr/local/etc/php/php.ini
+#let's use a tag instead
 COPY ./src /var/www/html/
 COPY ./docker /docker/
+RUN chown -R docker /docker
+COPY ./docker/php.ini /usr/local/etc/php/php.ini
 COPY ./docker/config/smashpig/public/ /etc/smashpig/
 COPY ./docker/config/smashpig/private/ /etc/smashpig/
 

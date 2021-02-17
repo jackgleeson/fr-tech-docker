@@ -14,10 +14,11 @@ services:
       - ./config/payments/mw/:/docker/config/mw/
       - ./config/payments/smashpig/:/docker/config/smashpig/
       # logs
-      - ./logs/payments.apache.errors:/var/log/apache2/error.log
-      - ./logs/payments.apache.access:/var/log/apache2/access.log
-      - ./logs/payments.php.errors:/var/log/php/error.log
-      - ./logs/payments.mw-debug:/var/log/php/mw-debug.log
+      - ./logs/payments-apache-errors.log:/var/log/apache2/error.log
+      - ./logs/payments-apache-access.log:/var/log/apache2/access.log
+      - ./logs/payments-php-errors.log:/var/log/php/error.log
+      - ./logs/payments-mw-debug.log:/var/log/php/mw-debug.log
+      - ./logs/payments-xdebug.log:/var/log/xdebug.log
     ports:
       - "8001:8001"
     environment:
@@ -46,11 +47,12 @@ services:
         group_id: ${DOCKER_GID:-1000}
     volumes:
       # src
-      # - ./apps/civicrm/src/:/var/www/html/
+      - ./apps/civicrm/src/:/var/www/html/
       # logs
-      - ./logs/civicrm.apache.errors:/var/log/apache2/error.log
-      - ./logs/civicrm.apache.access:/var/log/apache2/access.log
-      - ./logs/civicrm.php.errors:/var/log/php/error.log
+      - ./logs/civicrm-apache-errors.log:/var/log/apache2/error.log
+      - ./logs/civicrm-apache-access.log:/var/log/apache2/access.log
+      - ./logs/civicrm-php-errors.log:/var/log/php/error.log
+      - ./logs/civicrm-xdebug.log:/var/log/xdebug.log
     ports:
       - "8002:8002"
     environment:

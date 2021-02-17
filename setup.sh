@@ -2,19 +2,21 @@
 
 set -euo pipefail
 
-# Setup uid/gid
+# setup uid/gid
 echo -e "DOCKER_UID=$(id -u)\nDOCKER_GID=$(id -g)" > .env
 
-# Build the stack
+# build the images and run the containers
 docker-compose up -d
 
-# Wait a bit the for the database install to finish
+# wait a bit the for the database startup to finish
 while ! docker-compose exec database /bin/mysql -u root --password=dockerpass -e "SELECT 1" >/dev/null; do
   sleep 1 && printf '.'
 done
 
-# Install Payments-wiki
-./bin/install/payments-install.sh
+# setup payments-wiki
+(cd ./apps/payments/src && git checkout fundraising/REL1_35)
+(cd ./apps/payments/src/extensions/DonationInterface && git checkout master)
+docker-compose exec payments /bin/bash /docker/install.sh
 
-# Install CiviCRM
-./bin/install/civicrm-install.sh
+# setup civicrm
+docker-compose exec civicrm /bin/bash /docker/install.sh

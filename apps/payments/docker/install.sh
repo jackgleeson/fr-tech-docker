@@ -4,10 +4,11 @@ set -exuo pipefail
 
 sudo -u docker composer install
 
+# cp in PlatformSettings.php
+cp /docker/config/mw/PlatformSettings.php /var/www/html/PlatformSettings.php
+chown docker:docker /var/www/html/PlatformSettings.php
+
 # Install payments-wiki
-if [ -f "LocalSettings.php" ]; then
-    rm LocalSettings.php
-fi
 sudo -u docker php maintenance/install.php \
   --server "$MW_SERVER" \
   --scriptpath="$MW_SCRIPT_PATH" \
@@ -28,8 +29,8 @@ if [ -f "$LS" ]; then
 fi
 
 # Added default pages
-php maintenance/edit.php --summary='Docker import' 'Main_Page' < '/docker/wikitext/Main_Page.wiki'
-php maintenance/edit.php --summary='Docker import' 'Template:2011FR/JimmyQuote/text/en' < '/docker/wikitext/Appeal.wiki'
-php maintenance/edit.php --summary='Docker import' 'Template:LanguageSwitch' < '/docker/wikitext/LanguageSwitch.wiki'
-php maintenance/edit.php --summary='Docker import' 'Donate-thanks' < '/docker/wikitext/Donate-thanks.wiki'
-php maintenance/edit.php --summary='Docker import' 'Donate-error' < '/docker/wikitext/Donate-error.wiki'
+php maintenance/edit.php --summary='Docker import' 'Main_Page' < /docker/wikitext/Main_Page.wiki
+php maintenance/edit.php --summary='Docker import' 'Template:2011FR/JimmyQuote/text/en' < /docker/wikitext/Appeal.wiki
+php maintenance/edit.php --summary='Docker import' 'Template:LanguageSwitch' < /docker/wikitext/LanguageSwitch.wiki
+php maintenance/edit.php --summary='Docker import' 'Donate-thanks' < /docker/wikitext/Donate-thanks.wiki
+php maintenance/edit.php --summary='Docker import' 'Donate-error' < /docker/wikitext/Donate-error.wiki
