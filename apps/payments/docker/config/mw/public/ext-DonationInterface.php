@@ -29,4 +29,5 @@ $wgPaypalGatewayURL = "https://www.sandbox.paypal.com/cgi-bin/webscr";
 $wgDonationInterfaceDebugLog = true;
 $wgDonationInterfaceLogDebug = true;
 $wgDonationInterfaceDisplayDebug = true;
+$wgDonationInterfaceEmployersListDataFileLocation='employers.csv';
 
