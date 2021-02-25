@@ -35,21 +35,24 @@ nano \
 less
 
 RUN docker-php-ext-install bcmath \
-  && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
-  && docker-php-ext-install gd \
-  && docker-php-ext-install gettext \
-  && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-  && docker-php-ext-install imap \
-  && docker-php-ext-install intl \
-  && docker-php-ext-install mysqli \
-  && docker-php-ext-install opcache \
-  && docker-php-ext-install pdo_mysql \
-  && docker-php-ext-install soap \
-  && docker-php-ext-install zip
+    && docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install gettext \
+    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+    && docker-php-ext-install imap \
+    && docker-php-ext-install intl \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install opcache \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install soap \
+    && docker-php-ext-install zip
 
 RUN pecl install imagick \
     && pecl install xdebug \
-    && docker-php-ext-enable imagick
+    && pecl install redis-5.1.1 \
+    && docker-php-ext-enable imagick \
+    && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable redis
 
 ARG user_id
 ARG group_id
@@ -58,7 +61,11 @@ RUN useradd --home-dir /docker --create-home --uid $user_id --gid $group_id dock
 
 COPY ./docker /docker/
 RUN chown -R docker /docker
+
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/xdebug.ini /usr/local/etc/php/conf.d/_xdebug.ini
+RUN touch /var/log/xdebug.log
+RUN chown docker /var/log/xdebug.log
 
 # let's use a tag here
 COPY --chown=docker src /var/www/html/

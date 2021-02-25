@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y mariadb-client \
 curl \
 git \
 unzip \
-sudo \
 libmagickwand-dev \
 libjpeg-dev \
 libpng-dev \
@@ -36,41 +35,29 @@ libxml2-dev \
 nano \
 less
 
-RUN docker-php-ext-install mysqli \
+RUN pecl install imagick \
+    && pecl install redis-5.1.1 \
+    && pecl install apcu-5.1.19 \
+    && docker-php-ext-install mysqli \
     && docker-php-ext-install intl \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install soap \
     && docker-php-ext-install gd \
     && docker-php-ext-install gmp \
     && docker-php-ext-install zip \
-    && docker-php-ext-install bcmath
-
-RUN pecl install imagick \
-    && pecl install redis-5.1.1 \
-    && pecl install apcu-5.1.19 \
-    && pecl install xdebug \
-    && pecl install ast \
+    && docker-php-ext-install bcmath \
     && docker-php-ext-enable imagick \
-    && docker-php-ext-enable xdebug \
     && docker-php-ext-enable apcu \
-    && docker-php-ext-enable redis \
-    && docker-php-ext-enable ast
+    && docker-php-ext-enable redis
 
 ARG user_id
 ARG group_id
-RUN addgroup --gid=$group_id docker
-RUN useradd --home-dir /docker --create-home --uid $user_id --gid $group_id docker
+RUN addgroup --gid=$group_id runuser
+RUN useradd --home-dir /runuser --create-home --uid $user_id --gid $group_id runuser
 
-#let's use a tag instead
+COPY docker/php.ini /usr/local/etc/php/php.ini
 COPY ./src /var/www/html/
 COPY ./docker /docker/
-RUN chown -R docker /docker
-
-COPY ./docker/php.ini /usr/local/etc/php/php.ini
-COPY ./docker/xdebug.ini /usr/local/etc/php/conf.d/_xdebug.ini
-RUN touch /var/log/xdebug.log
-RUN chown docker /var/log/xdebug.log
-
 COPY ./docker/config/smashpig/public/ /etc/smashpig/
 COPY ./docker/config/smashpig/private/ /etc/smashpig/
 
