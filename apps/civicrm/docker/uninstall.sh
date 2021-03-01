@@ -12,3 +12,5 @@ rm /var/www/html/sites/default/settings.php
 rm /var/www/html/sites/default/civicrm.settings.php
 rm /var/www/html/sites/default/civicrm-install.php
 rm /var/www/html/sites/default/DonationInterface.settings.php
+rm /var/www/html/sites/default/wmf_settings.json
+rm /var/www/html/sites/default/wmf_settings_developer.json

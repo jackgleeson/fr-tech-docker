@@ -88,4 +88,4 @@ RUN curl --silent --fail --output composer.phar https://getcomposer.org/download
     && mv /tmp/composer.phar /usr/bin/composer
 
 WORKDIR /var/www/html
-EXPOSE 8001
+EXPOSE 8000

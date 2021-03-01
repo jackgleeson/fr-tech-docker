@@ -20,7 +20,7 @@ services:
       - ./logs/payments-mw-debug.log:/var/log/php/mw-debug.log
       - ./logs/payments-xdebug.log:/var/log/xdebug.log
     ports:
-      - "8001:8001"
+      - "8001:8000"
     environment:
       APACHE_RUN_USER: docker
       MW_SERVER: 'https://localhost:8001'
@@ -77,7 +77,7 @@ services:
       - ./logs/smashpig-php-errors.log:/var/log/php/error.log
       - ./logs/smashpig-xdebug.log:/var/log/xdebug.log
     ports:
-      - "8000:8003"
+      - "8003:8000"
     environment:
       APACHE_RUN_USER: docker
     depends_on:

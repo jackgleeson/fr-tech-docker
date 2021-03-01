@@ -1,8 +1,7 @@
 #!/bin/bash
 
 set -exuo pipefail
-
-mysql -h database -u root --password=dockerpass -e 'CREATE DATABASE civicrm'
+mysql -h database -u root --password=dockerpass < /docker/sql/civicrm.sql
 mysql -h database -u root --password=dockerpass -e 'CREATE DATABASE drupal'
 mysql -h database -u root --password=dockerpass -e 'CREATE DATABASE fredge'
 cat /docker/sql/fredge/*.sql | mysql -h database -u root --password=dockerpass 'fredge' -qs
@@ -10,7 +9,7 @@ cat /docker/sql/fredge/*.sql | mysql -h database -u root --password=dockerpass '
 sudo -u docker composer install
 
 chmod 755 /var/www/html/sites/default
-sudo -u docker cp /docker/config/drupal/*.php /var/www/html/sites/default/
+sudo -u docker cp /docker/config/drupal/* /var/www/html/sites/default/
 sudo -u docker php /var/www/html/sites/default/civicrm-install.php
 
 sudo -u docker /usr/local/bin/drush site-install standard \
