@@ -3,8 +3,8 @@
 // The paths below are relative to the docker container
 foreach (
   array_merge(
-    glob('/docker/config/mw/private/*.php'),
-    glob('/docker/config/mw/public/*.php')
+    glob('/docker/config/mw/public/*.php'),
+    glob('/docker/config/mw/private/*.php')
   ) as $config_file) {
     include_once $config_file;
 }
