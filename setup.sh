@@ -5,6 +5,9 @@ set -euo pipefail
 # setup uid/gid
 echo -e "DOCKER_UID=$(id -u)\nDOCKER_GID=$(id -g)" > .env
 
+# set log files
+./bin/misc/create-logs.sh
+
 # build the images and run the containers
 docker-compose up -d
 
