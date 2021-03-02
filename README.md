@@ -6,10 +6,11 @@ Proof of concept fr-tech stack using Docker.
 3. run `./setup.sh` and grab a coffee because it might take a while first time around. 
 
 ## What does it install?
-1. Payments-wiki running on Apache/PHP 7.4. See here: https://localhost:8001
-2. Civicrm running on Apache/PHP 7.3. See here: https://localhost:8002
-3. MariaDB 
-4. Redis 5.0
+1. Payments-wiki running on Apache/PHP 7.4. See here:https://localhost:8001/index.php/Main_Page
+2. Civicrm running on Apache/PHP 7.3. See here: https://localhost:8002/civicrm
+3. SmashPig running on Apache/PHP 7.4. See here: https://localhost:8003/adyen
+4. MariaDB 
+5. Redis 5.0
 
 ## Project Struture
 ![project-structure](screenshots/project-structure.png)
