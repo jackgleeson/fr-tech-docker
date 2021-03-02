@@ -22,6 +22,7 @@ done
 docker-compose exec payments /bin/bash /docker/install.sh
 
 # setup smashpig
+(cd ./apps/smashpig/src && git checkout master)
 docker-compose exec smashpig /bin/bash /docker/install.sh
 
 # setup civicrm
