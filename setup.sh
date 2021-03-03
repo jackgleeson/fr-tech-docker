@@ -30,3 +30,6 @@ docker-compose exec smashpig /bin/bash /docker/install.sh
 docker-compose exec civicrm /bin/bash /docker/install.sh
 
 
+# setup config symlinks
+./bin/misc/create-config-symlinks.sh
+

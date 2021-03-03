@@ -1,6 +1,8 @@
 .env
 logs/*
+!logs/README
 config/*
+!config/README
 
 # private config
 apps/payments/docker/config/mw/private
