@@ -1,5 +1,5 @@
-## WMF Fundraising Tech Docker stack
-Proof of concept fr-tech stack using Docker.
+## Fundraising Tech Docker stack
+Alternative fr-tech docker stack using vanilla Dockerfiles. 
 
 ## Install
 1. run `git clone --recursive https://github.com/jackgleeson/fr-tech-docker` and `cd fr-tech-docker`
@@ -12,7 +12,7 @@ Proof of concept fr-tech stack using Docker.
 4. MariaDB 
 5. Redis 5.0
 
-## Project Struture
+## Stack Struture
 ![project-structure](screenshots/project-structure.png)
 
 ## Docker commands
