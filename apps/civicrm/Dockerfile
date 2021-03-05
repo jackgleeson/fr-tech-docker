@@ -3,7 +3,7 @@ FROM debian:buster-slim AS cert_builder
 RUN apt update && apt install -y openssl
 RUN sed -i 's/^# subjectAltName=email:copy/subjectAltName=DNS:localhost/g' /etc/ssl/openssl.cnf
 RUN /usr/bin/openssl req \
--subj '/CN=localhost/O=Wikimedia/C=UK' \
+-subj '/CN=civicrm/O=Wikimedia/C=UK' \
 -nodes \
 -new \
 -x509 \

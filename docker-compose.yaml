@@ -85,6 +85,29 @@ services:
       - database
       - queue
 
+  civiproxy:
+    build:
+      context: apps/civiproxy
+      args:
+        user_id: ${DOCKER_UID:-1000}
+        group_id: ${DOCKER_GID:-1000}
+    volumes:
+      # src
+      - ./apps/civiproxy/src/proxy:/var/www/html/
+      # logs
+      - ./logs/civiproxy-apache-errors.log:/var/log/apache2/error.log
+      - ./logs/civiproxy-apache-access.log:/var/log/apache2/access.log
+      - ./logs/civiproxy-php-errors.log:/var/log/php/error.log
+      - ./logs/civiproxy-xdebug.log:/var/log/xdebug.log
+    ports:
+      - "8004:8000"
+    environment:
+      APACHE_RUN_USER: docker
+      CIVICRM_ADMIN_API_KEY: docker-api-key
+      CIVICRM_SITE_KEY: civicrm-site-key
+    depends_on:
+      - civicrm
+
   queue:
     image: redis:5.0-buster
     volumes:

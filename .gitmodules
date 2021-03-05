@@ -8,3 +8,7 @@
 [submodule "apps/smashpig/src"]
 	path = apps/smashpig/src
 	url = https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig
+[submodule "apps/civiproxy/src"]
+	path = apps/civiproxy/src
+	url = https://gerrit.wikimedia.org/r/wikimedia/fundraising/crm/civiproxy
+	branch = fundraising-dev

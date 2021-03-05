@@ -29,6 +29,9 @@ docker-compose exec smashpig /bin/bash /docker/install.sh
 (cd ./apps/civicrm/src && git checkout master && git submodule update --init)
 docker-compose exec civicrm /bin/bash /docker/install.sh
 
+# setup civiproxy
+docker-compose exec civiproxy /bin/bash /docker/install.sh
+
 
 # setup config symlinks
 ./bin/misc/create-config-symlinks.sh

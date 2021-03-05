@@ -12,4 +12,9 @@ touch civicrm-apache-access.log \
   smashpig-apache-access.log \
   smashpig-apache-errors.log \
   smashpig-php-errors.log \
-  smashpig-xdebug.log
+  smashpig-xdebug.log \
+  civiproxy-apache-access.log \
+  civiproxy-apache-errors.log \
+  civiproxy-php-errors.log \
+  civiproxy-xdebug.log
+
