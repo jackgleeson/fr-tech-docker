@@ -18,12 +18,14 @@ services:
       - ./logs/payments-php-errors.log:/var/log/php/error.log
       - ./logs/payments-mw-debug.log:/var/log/php/mw-debug.log
       - ./logs/payments-xdebug.log:/var/log/xdebug.log
+      - ./logs/payments-syslog.log:/var/log/syslog
     ports:
       - "8001:8000"
     environment:
       APACHE_RUN_USER: docker
       MW_SERVER: 'https://localhost:8001'
       MW_SCRIPT_PATH: ''
+      MW_LOG_DIR: '/var/log/'
       MW_DB_TYPE: 'mysql'
       MW_DB_HOST: 'database'
       MW_DB_NAME: 'payments'
@@ -52,6 +54,7 @@ services:
       - ./logs/civicrm-apache-access.log:/var/log/apache2/access.log
       - ./logs/civicrm-php-errors.log:/var/log/php/error.log
       - ./logs/civicrm-xdebug.log:/var/log/xdebug.log
+      - ./logs/civicrm-syslog.log:/var/log/syslog
     ports:
       - "8002:8002"
     environment:
@@ -76,6 +79,7 @@ services:
       - ./logs/smashpig-apache-access.log:/var/log/apache2/access.log
       - ./logs/smashpig-php-errors.log:/var/log/php/error.log
       - ./logs/smashpig-xdebug.log:/var/log/xdebug.log
+      - ./logs/smashpig-syslog.log:/var/log/syslog
     ports:
       - "8003:8000"
     environment:
@@ -98,6 +102,7 @@ services:
       - ./logs/civiproxy-apache-access.log:/var/log/apache2/access.log
       - ./logs/civiproxy-php-errors.log:/var/log/php/error.log
       - ./logs/civiproxy-xdebug.log:/var/log/xdebug.log
+      - ./logs/civiproxy-syslog.log:/var/log/syslog
     ports:
       - "8004:8000"
     environment:

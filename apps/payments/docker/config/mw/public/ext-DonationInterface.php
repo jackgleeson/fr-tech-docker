@@ -17,7 +17,7 @@ $wgDonationInterfaceEnableSystemStatus = true;
 $wgDonationInterfaceMemcacheHost = "localhost";
 $wgDonationInterfaceRapidFail = true;
 $wgDonationInterfaceTest = true;
-$wgDonationInterfaceUseSyslog = false;
+$wgDonationInterfaceUseSyslog = true;
 $wgDonationInterfaceVariantConfigurationDirectory = "/var/www/html/extensions/DonationInterface/form_variants";
 $wgGlobalCollectGatewayAccountInfo = array("test" => array("MerchantID" => "test"));
 $wgGlobalCollectGatewayEnabled = true;

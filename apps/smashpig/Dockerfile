@@ -19,6 +19,7 @@ curl \
 git \
 unzip \
 sudo \
+rsyslog \
 libsodium-dev \
 zlib1g-dev \
 libzip-dev \
@@ -50,7 +51,7 @@ COPY ./src /var/www/html/
 COPY ./docker /docker/
 RUN chown -R docker /docker
 
-# xdebug
+COPY ./docker/rsyslog.conf /etc/rsyslog.conf
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
 COPY ./docker/xdebug.ini /usr/local/etc/php/conf.d/_xdebug.ini
 RUN touch /var/log/xdebug.log
@@ -75,3 +76,5 @@ RUN curl --silent --fail --output composer.phar https://getcomposer.org/download
 
 WORKDIR /var/www/html
 EXPOSE 8000
+
+ENTRYPOINT /usr/sbin/rsyslogd -iNONE && apache2-foreground

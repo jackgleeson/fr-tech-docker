@@ -16,6 +16,7 @@ RUN /usr/bin/openssl req \
 FROM php:7.3-apache-buster
 RUN apt-get update && apt-get install -y \
 git \
+rsyslog \
 iproute2 \
 libc-client-dev \
 libicu-dev \
@@ -62,6 +63,7 @@ RUN useradd --home-dir /docker --create-home --uid $user_id --gid $group_id dock
 COPY ./docker /docker/
 RUN chown -R docker /docker
 
+COPY ./docker/rsyslog.conf /etc/rsyslog.conf
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
 COPY ./docker/xdebug.ini /usr/local/etc/php/conf.d/_xdebug.ini
 RUN touch /var/log/xdebug.log
@@ -95,4 +97,6 @@ RUN curl --silent --fail --output composer.phar https://getcomposer.org/download
 
 WORKDIR /var/www/html
 EXPOSE 8002
+
+ENTRYPOINT /usr/sbin/rsyslogd -iNONE && apache2-foreground
 

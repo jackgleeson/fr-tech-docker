@@ -17,6 +17,7 @@ FROM php:7.4-apache-buster
 RUN apt-get update && apt-get install -y curl \
 default-mysql-client \
 git \
+rsyslog \
 unzip \
 sudo \
 nano \
@@ -34,7 +35,7 @@ COPY ./src/proxy/ /var/www/html
 COPY ./docker /docker/
 RUN chown -R docker /docker
 
-# xdebug
+COPY ./docker/rsyslog.conf /etc/rsyslog.conf
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
 COPY ./docker/xdebug.ini /usr/local/etc/php/conf.d/_xdebug.ini
 RUN touch /var/log/xdebug.log
@@ -49,3 +50,5 @@ RUN a2ensite civiproxy.ssl.conf
 
 WORKDIR /var/www/html
 EXPOSE 8000
+
+ENTRYPOINT /usr/sbin/rsyslogd -iNONE && apache2-foreground

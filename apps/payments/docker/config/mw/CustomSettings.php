@@ -14,14 +14,6 @@ foreach (
 if (!empty($_REQUEST['debug'])) {
   $wgDebugToolbar = true;
 }
-$wgDebugLogFile = "/var/log/php/mw-debug.log";
-
-// Expose debug info for PHP errors.
-$wgShowExceptionDetails = true;
-
-// Calls to deprecated methods will trigger E_USER_DEPRECATED errors
-// in the PHP error log.
-$wgDevelopmentWarnings = true;
 
 // Expose debug info for SQL errors.
 $wgDebugDumpSql = false;

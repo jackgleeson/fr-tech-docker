@@ -32,7 +32,7 @@ if [ -f "$LS" ]; then
     echo "require_once( '/docker/config/mw/CustomSettings.php');" >> "$LS"
 fi
 
-# Added default pages
+# Add default pages
 php maintenance/edit.php --summary='Docker import' 'Main_Page' < /docker/wikitext/Main_Page.wiki
 php maintenance/edit.php --summary='Docker import' 'Template:2011FR/JimmyQuote/text/en' < /docker/wikitext/Appeal.wiki
 php maintenance/edit.php --summary='Docker import' 'Template:LanguageSwitch' < /docker/wikitext/LanguageSwitch.wiki

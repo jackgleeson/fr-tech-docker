@@ -19,6 +19,7 @@ curl \
 git \
 unzip \
 sudo \
+rsyslog \
 libmagickwand-dev \
 libjpeg-dev \
 libpng-dev \
@@ -66,10 +67,11 @@ COPY ./src /var/www/html/
 COPY ./docker /docker/
 RUN chown -R docker /docker
 
+COPY ./docker/rsyslog.conf /etc/rsyslog.conf
 COPY ./docker/php.ini /usr/local/etc/php/php.ini
 COPY ./docker/xdebug.ini /usr/local/etc/php/conf.d/_xdebug.ini
 RUN touch /var/log/xdebug.log
-RUN chown docker /var/log/xdebug.log
+RUN chown -R docker /var/log/
 
 COPY ./docker/config/smashpig/public/ /etc/smashpig/
 COPY ./docker/config/smashpig/private/ /etc/smashpig/
@@ -89,3 +91,5 @@ RUN curl --silent --fail --output composer.phar https://getcomposer.org/download
 
 WORKDIR /var/www/html
 EXPOSE 8000
+
+ENTRYPOINT /usr/sbin/rsyslogd -iNONE && apache2-foreground
