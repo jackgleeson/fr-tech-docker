@@ -22,6 +22,8 @@ sudo -u docker php maintenance/install.php \
   --with-extensions \
   "$MW_SITENAME" "$MW_USER"
 
+sudo -u docker php maintenance/update.php --quick
+
 # Load mw config
 LS=${PWD}"/LocalSettings.php"
 if [ -f "$LS" ]; then
