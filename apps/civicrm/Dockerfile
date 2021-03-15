@@ -69,8 +69,6 @@ RUN chown docker /var/log/xdebug.log
 
 # let's use a tag here
 COPY --chown=docker src /var/www/html/
-RUN chmod 755 /var/www/html/sites/default
-
 COPY ./docker/drush.sh /usr/local/bin/drush
 COPY ./docker/config/smashpig/public/ /etc/smashpig/
 RUN mkdir /var/spool/prometheus && chown docker /var/spool/prometheus
