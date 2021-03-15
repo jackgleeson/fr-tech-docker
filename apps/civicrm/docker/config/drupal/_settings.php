@@ -90,7 +90,7 @@ global $civicrm_setting;
 $civicrm_setting['URL Preferences']['userFrameworkResourceURL'] = 'https://localhost:8002/sites/all/modules/civicrm';
 
 # FIXME: That's annoying.
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 require_once __DIR__ . '/DonationInterface.settings.php';
 

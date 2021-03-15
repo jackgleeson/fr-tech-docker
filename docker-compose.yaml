@@ -57,6 +57,7 @@ services:
       - "8002:8002"
     environment:
       APACHE_RUN_USER: docker
+    restart: unless-stopped
     depends_on:
       - database
       - queue

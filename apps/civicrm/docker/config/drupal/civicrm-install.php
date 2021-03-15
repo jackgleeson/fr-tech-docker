@@ -31,9 +31,9 @@ define( 'DB_NAME', $config['drupal']['database'] );
 require_once '/var/www/html/civicrm/install/civicrm.php';
 
 civicrm_main( $config );
-$extDir = '/var/www/html/sites/default/civicrm/extensions';
+$extDir = '/var/www/html/drupal/sites/default/civicrm/extensions';
 $extUrl = 'https://localhost:8002/sites/default/civicrm/extensions';
-file_put_contents('/var/www/html/sites/default/civicrm.settings.php', "
+file_put_contents('/var/www/html/drupal/sites/default/civicrm.settings.php', "
     global \$civicrm_setting;
     \$civicrm_setting['Directory Preferences']['extensionsDir'] = '$extDir';
     \$civicrm_setting['URL Preferences']['extensionsURL'] = '$extUrl';
