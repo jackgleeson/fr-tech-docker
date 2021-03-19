@@ -74,7 +74,7 @@ COPY ./docker/config/smashpig/public/ /etc/smashpig/
 RUN mkdir /var/spool/prometheus && chown docker /var/spool/prometheus
 
 WORKDIR /docker
-RUN git clone https://gerrit.wikimedia.org/r/wikimedia/fundraising/crm/civicrm-buildkit
+RUN git clone https://github.com/civicrm/civicrm-buildkit
 RUN /docker/civicrm-buildkit/bin/civi-download-tools
 ENV PATH="${PATH}:/docker/civicrm-buildkit/bin"
 
