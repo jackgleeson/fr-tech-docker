@@ -1,6 +1,6 @@
 #!/bin/bash
 cd ./config
-ln -s ../apps/payments/docker/config payments
-ln -s ../apps/civicrm/docker/config civicrm
-ln -s ../apps/smashpig/docker/config smashpig
-ln -s ../apps/civiproxy/docker/config civiproxy
+ln -sfn ../apps/payments/docker/config payments
+ln -sfn ../apps/civicrm/docker/config civicrm
+ln -sfn ../apps/smashpig/docker/config smashpig
+ln -sfn ../apps/civiproxy/docker/config civiproxy

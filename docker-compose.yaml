@@ -11,8 +11,7 @@ services:
       # src
       - ./apps/payments/src/:/var/www/html/
       # config
-      - ./config/payments/mw/:/docker/config/mw/
-      - ./config/payments/smashpig/:/docker/config/smashpig/
+      - ./config/payments/:/docker/config/
       # logs
       - ./logs/payments-apache-errors.log:/var/log/apache2/error.log
       - ./logs/payments-apache-access.log:/var/log/apache2/access.log

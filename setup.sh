@@ -5,8 +5,13 @@ set -euo pipefail
 # setup uid/gid
 echo -e "DOCKER_UID=$(id -u)\nDOCKER_GID=$(id -g)" > .env
 
+echo ">>> Begin Setup!"
+
 # set log files
 ./bin/misc/create-logs.sh
+
+# setup config symlinks
+./bin/misc/create-config-symlinks.sh
 
 # build the images and run the containers
 docker-compose up -d
@@ -32,7 +37,7 @@ docker-compose exec civicrm /bin/bash /docker/install.sh
 # setup civiproxy
 docker-compose exec civiproxy /bin/bash /docker/install.sh
 
+# we're done!
+echo ">>> Setup complete!"
 
-# setup config symlinks
-./bin/misc/create-config-symlinks.sh
 

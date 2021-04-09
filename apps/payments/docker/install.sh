@@ -8,6 +8,8 @@ sudo -u docker composer install
 cp /docker/config/mw/PlatformSettings.php /var/www/html/PlatformSettings.php
 chown docker:docker /var/www/html/PlatformSettings.php
 
+# TODO: move smashpig config setup from Dockerfile to here also
+
 # Install payments-wiki
 sudo -u docker php maintenance/install.php \
   --server "$MW_SERVER" \
