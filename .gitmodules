@@ -11,4 +11,3 @@
 [submodule "apps/civiproxy/src"]
 	path = apps/civiproxy/src
 	url = https://gerrit.wikimedia.org/r/wikimedia/fundraising/crm/civiproxy
-	branch = fundraising-dev
