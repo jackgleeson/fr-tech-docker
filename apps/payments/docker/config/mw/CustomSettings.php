@@ -19,6 +19,7 @@ if (!empty($_REQUEST['debug'])) {
 $wgDebugDumpSql = false;
 $wgShowDBErrorBacktrace = true;
 $wgShowSQLErrors = false;
+$wgShowExceptionDetails = true;
 
 // Disable RL caching that interferes with debugging
 $wgResourceLoaderStorageEnabled = false;
