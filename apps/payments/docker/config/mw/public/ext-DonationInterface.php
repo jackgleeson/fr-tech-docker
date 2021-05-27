@@ -30,4 +30,4 @@ $wgDonationInterfaceDebugLog = true;
 $wgDonationInterfaceLogDebug = true;
 $wgDonationInterfaceDisplayDebug = true;
 $wgDonationInterfaceEmployersListDataFileLocation='employers.csv';
-
+$wgDonationInterfaceMonthlyConvertCountries = [ 'US', 'CA', 'NZ', 'IE', 'AU', 'GB' ];
