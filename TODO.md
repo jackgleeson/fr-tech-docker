@@ -1,9 +1,8 @@
 # Todos
 - php8
+- mailcatcher
 - drupal9
-- stats-collector test
 - grafana
 - email-prefs
 - process-control
 - crons
-- logdog
